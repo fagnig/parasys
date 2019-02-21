@@ -25,6 +25,8 @@ int main(){
 
 	//You are allowed to edit in the following number:
 	unsigned long long number = 7310016643938150728;
+	unsigned long long num = *((unsigned long long*) word); //This prints something, but what?
+	printf("0x%llx\n", num);
 	//Editing stops now
 
 	//Consider googling endianness, as almost all machines are little-endian, 
