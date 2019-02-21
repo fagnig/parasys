@@ -17,10 +17,7 @@ See Databar Exercise 1 for instructions.
 double get_current_time_seconds1() { 
     /* Get current time using gettimeofday */
 	struct timeval time;
-
 	gettimeofday(&time, NULL);
-	
-
     return (double) ((double) time.tv_sec + (double) time.tv_usec/1000000);
 }
 
@@ -28,20 +25,27 @@ double get_current_time_seconds2() {
     /* Get current time using clock_gettime using CLOCK_REALTIME */
 	struct timespec time;
 	clock_gettime(CLOCK_REALTIME, &time);
-
-	
-	
     return (double) ( (double) time.tv_sec + (double) time.tv_nsec/1000000000);
 }
 
 double get_current_time_seconds3() { 
     /* Get current time using clock_gettime using CLOCK_MONOTONIC */
-
-struct timespec time;
+	struct timespec time;
 	clock_gettime(CLOCK_MONOTONIC, &time);
+    return (double) ( (double) time.tv_sec + (double) time.tv_nsec/1000000000);
+}
 
-	
-	
+double get_res2() { 
+    /* Get current time using clock_gettime using CLOCK_REALTIME */
+	struct timespec time;
+	clock_getres(CLOCK_REALTIME, &time);
+    return (double) ( (double) time.tv_sec + (double) time.tv_nsec/1000000000);
+}
+
+double get_res3() { 
+    /* Get current time using clock_gettime using CLOCK_MONOTONIC */
+	struct timespec time;
+	clock_getres(CLOCK_MONOTONIC, &time);
     return (double) ( (double) time.tv_sec + (double) time.tv_nsec/1000000000);
 }
 
@@ -51,7 +55,7 @@ int main() {
     double start1, end1; /* timing variables [seconds] */
     double start2, end2; /* timing variables [seconds] */
     double start3, end3; /* timing variables [seconds] */
-
+	
     start1 = get_current_time_seconds1();
 
     /* Some hard work */
@@ -75,8 +79,9 @@ int main() {
     end2 = get_current_time_seconds2();
 
     start3 = get_current_time_seconds3();
-
+	
     /* Some hard work */
+	
     for (i = 0; i < LIMIT_I; i++) {
         for (j = 0; j < LIMIT_J; j++) {
             x = x + i*j;
@@ -139,6 +144,5 @@ int main() {
 
     clock_getres(CLOCK_MONOTONIC, &tis2);
     printf("%ld,%ld\n", tis2.tv_sec,tis2.tv_nsec);
-
 }
 
