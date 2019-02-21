@@ -10,8 +10,8 @@ See Databar Exercise 1 for instructions.
 #include <sys/time.h>
 #include <time.h>
 
-#define LIMIT_I 1000000
-#define LIMIT_J 1000000
+#define LIMIT_I 1000
+#define LIMIT_J 1000
 
  
 double get_current_time_seconds1() { 
@@ -53,8 +53,6 @@ int main() {
     double start3, end3; /* timing variables [seconds] */
 
     start1 = get_current_time_seconds1();
-    start2 = get_current_time_seconds2();
-    start3 = get_current_time_seconds3();
 
     /* Some hard work */
     for (i = 0; i < LIMIT_I; i++) {
@@ -64,13 +62,83 @@ int main() {
     }
 
     end1 = get_current_time_seconds1();
-    end2 = get_current_time_seconds2();
-    end3 = get_current_time_seconds3();
 
+    start2 = get_current_time_seconds2();
+
+    /* Some hard work */
+    for (i = 0; i < LIMIT_I; i++) {
+        for (j = 0; j < LIMIT_J; j++) {
+            x = x + i*j;
+        }
+    }
+
+    end2 = get_current_time_seconds2();
+
+    start3 = get_current_time_seconds3();
+
+    /* Some hard work */
+    for (i = 0; i < LIMIT_I; i++) {
+        for (j = 0; j < LIMIT_J; j++) {
+            x = x + i*j;
+        }
+    }
+
+    end3 = get_current_time_seconds3();
+    
+    printf("%s\n", "1000*1000 operations.");
     printf("Elapsed time: %1.50f sec\n"
            "              %1.50f sec\n"
-           "              %1.50f sec\n", 
+           "              %1.50f sec\n\n", 
            end1-start1, end2-start2, end3-start3);
- 
+
+    //HIGHER LIMIT
+    start1 = get_current_time_seconds1();
+
+    /* Some hard work */
+    for (i = 0; i < LIMIT_I*10; i++) {
+        for (j = 0; j < LIMIT_J*10; j++) {
+            x = x + i*j;
+        }
+    }
+
+    end1 = get_current_time_seconds1();
+
+    start2 = get_current_time_seconds2();
+
+    /* Some hard work */
+    for (i = 0; i < LIMIT_I*10; i++) {
+        for (j = 0; j < LIMIT_J*10; j++) {
+            x = x + i*j;
+        }
+    }
+
+    end2 = get_current_time_seconds2();
+
+    start3 = get_current_time_seconds3();
+
+    /* Some hard work */
+    for (i = 0; i < LIMIT_I*10; i++) {
+        for (j = 0; j < LIMIT_J*10; j++) {
+            x = x + i*j;
+        }
+    }
+
+    end3 = get_current_time_seconds3();
+
+    printf("%s\n", "10000*10000 operations.");
+    printf("Elapsed time: %1.50f sec\n"
+           "              %1.50f sec\n"
+           "              %1.50f sec\n\n", 
+           end1-start1, end2-start2, end3-start3);
+
+    struct timespec tis;
+    struct timespec tis2;
+
+    clock_getres(CLOCK_REALTIME, &tis2);
+    printf("%ld,%ld\n", tis2.tv_sec,tis2.tv_nsec);
+
+    clock_getres(CLOCK_MONOTONIC, &tis2);
+    printf("%ld,%ld\n", tis2.tv_sec,tis2.tv_nsec);
+
 }
 
