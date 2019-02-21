@@ -28,22 +28,19 @@
 
 int x[CACHE_MAX]; /* array going to stride through */
  
-double get_secondsXX() { /* routine to read time */
+double get_seconds() { /* routine to read time */
   struct tms rusage;
   times(&rusage);    /* UNIX utility: time in clock ticks */
   return (double) (rusage.tms_utime)/CLK_TCK;
 }
 
-double get_seconds() { 
+double get_secondsXX() { 
   /* Get current time using clock_gettime using CLOCK_MONOTONIC */
 
   struct timespec time;
   clock_gettime(CLOCK_MONOTONIC_RAW, &time);
 
-  //printf("%f\n",  (double) ( (double) time.tv_sec + (double) time.tv_nsec/1000000000));
-
   return (double) ( (double) time.tv_sec + (double) time.tv_nsec/1000000000);
-  //return 0.0;
 }
 
 int main() {

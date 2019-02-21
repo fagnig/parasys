@@ -100,30 +100,30 @@ int main() {
     start1 = get_current_time_seconds1();
 
     /* Some hard work */
-    for (i = 0; i < LIMIT_I*10; i++) {
-        for (j = 0; j < LIMIT_J*10; j++) {
+    for (i = 0; i < LIMIT_I*100; i++) {
+        for (j = 0; j < LIMIT_J*100; j++) {
             x = x + i*j;
         }
     }
 
     end1 = get_current_time_seconds1();
-
+    printf("%s\n", "1/3\n");
     start2 = get_current_time_seconds2();
 
     /* Some hard work */
-    for (i = 0; i < LIMIT_I*10; i++) {
-        for (j = 0; j < LIMIT_J*10; j++) {
+    for (i = 0; i < LIMIT_I*100; i++) {
+        for (j = 0; j < LIMIT_J*100; j++) {
             x = x + i*j;
         }
     }
 
     end2 = get_current_time_seconds2();
-
+    printf("%s\n", "2/3\n");
     start3 = get_current_time_seconds3();
 
     /* Some hard work */
-    for (i = 0; i < LIMIT_I*10; i++) {
-        for (j = 0; j < LIMIT_J*10; j++) {
+    for (i = 0; i < LIMIT_I*100; i++) {
+        for (j = 0; j < LIMIT_J*100; j++) {
             x = x + i*j;
         }
     }
