@@ -1,13 +1,13 @@
 #!/bin/sh
 # embedded options to qsub - start with #PBS
 # -- Name of the job ---
-#PBS -N Hello_MPI
+#PBS -N MPI_COMMs
 # -- specify queue --
 #PBS -q hpc
 # -- estimated wall clock time (execution time): hh:mm:ss --
 #PBS -l walltime=00:01:00
 # -- number of processors/cores/nodes --
-#PBS -l nodes=2:ppn=4
+#PBS -l nodes=4:ppn=8
 # -- user email address --
 #PBS -M s175179@student.dtu.dk
 # -- mail notification --
@@ -18,4 +18,4 @@ if test X$PBS_ENVIRONMENT = XPBS_BATCH; then cd $PBS_O_WORKDIR; fi
 
 module load mpi
 
-mpirun ./hello_mpi > mpi.log
+mpirun ./comms > meme.log
