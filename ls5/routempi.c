@@ -350,6 +350,31 @@ void find_longest_ascent() {
 }
 
 
+void process_longest_ascent() {
+  for(i = 0; i<procs+1; i++){
+    if(i==0){
+      combined_ascents[i]=start_ascents[i];
+    }
+
+    if(start_ascents[i]<1){
+      combined_ascents[i+1] = end_ascents[i];
+    }else{
+      combined_ascents[i]+=end_ascents[i]+start_ascents[i+1];
+    }
+
+  }
+
+  for(i = 0; i<procs+1; i++){
+    if(combined_ascents[i] > global_longest_ascent){
+      global_longest_ascent = combined_ascents[i];
+    }
+
+    if(mid_ascents[i] > global_longest_ascent){
+      global_longest_ascent = mid_ascents[i];
+    }
+  }
+}
+
 int main(int argc, char* args[]){
 
   MPI_Init(&argc, &args);
@@ -412,30 +437,9 @@ int main(int argc, char* args[]){
   MPI_Gather(&local_end_ascent, 1, MPI_DOUBLE,
                &end_ascents, 1, MPI_DOUBLE, MASTER, MPI_COMM_WORLD);
 
-  for(i = 0; i<procs+1; i++){
-    if(i==0){
-      combined_ascents[i]=start_ascents[i];
-    }
-
-    if(start_ascents[i]<1){
-      combined_ascents[i+1] = end_ascents[i];
-    }else{
-      combined_ascents[i]+=end_ascents[i]+start_ascents[i+1];
-    }
-
+  if(id == MASTER){
+    process_longest_ascent();
   }
-
-  for(i = 0; i<procs+1; i++){
-    if(combined_ascents[i] > global_longest_ascent){
-      global_longest_ascent = combined_ascents[i];
-    }
-
-    if(mid_ascents[i] > global_longest_ascent){
-      global_longest_ascent = mid_ascents[i];
-    }
-  }
-
-
 
   //ASCENT END
   
