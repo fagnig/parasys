@@ -12,7 +12,7 @@
 int main (int argc, char *argv[])
 {
   int  numtasks, taskid, len, partner, message;
-  char hostname[MPI_MAX_PROCESSOR_NAME];
+  char hostname[MPI_MAX_PROCESSOR_NAME], go;
   MPI_Status status;
 
   MPI_Init(&argc, &argv);
