@@ -26,10 +26,16 @@ int main (int argc, char *argv[])
   } else {
     if (taskid == MASTER) 
       printf("MASTER: Number of MPI tasks is: %d\n",numtasks);
-
+	
+	//Wait for all nodes to reach this state
+	MPI_Barrier(MPI_COMM_WORLD);
+  
     MPI_Get_processor_name(hostname, &len);
     printf ("Hello from task %d on %s!\n", taskid, hostname);
 
+	//Wait for all nodes to reach this state
+	MPI_Barrier(MPI_COMM_WORLD);
+	
     /* determine partner and then send/receive with partner */
     if (taskid < numtasks/2) {
       partner = numtasks/2 + taskid;
@@ -41,8 +47,22 @@ int main (int argc, char *argv[])
       MPI_Send(&taskid, 1, MPI_INT, partner, 1, MPI_COMM_WORLD);
     }
 
-    /* print partner info and exit*/
-    printf("Task %d is partner with %d\n",taskid,message);
+    //Order print starting with master
+	if (taskid == MASTER)
+	{
+		go = 'r';
+		/* print partner info and exit*/
+		printf("Task %d is partner with %d\n",taskid,message);
+		MPI_Send(&go, 1, MPI_CHAR, taskid + 1, 1, MPI_COMM_WORLD);
+	}
+	else
+	{
+		MPI_Recv(&go, 1, MPI_CHAR, taskid - 1, 1, MPI_COMM_WORLD, &status);
+		/* print partner info and exit*/
+		printf("Task %d is partner with %d\n",taskid,message);
+		if (taskid < numtasks)
+			MPI_Send(&go, 1, MPI_CHAR, taskid + 1, 1, MPI_COMM_WORLD);
+	}
   }
 
   MPI_Finalize();
