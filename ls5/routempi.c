@@ -245,87 +245,9 @@ double distance_above(double height) {
   return total;
 }    
 
-void print_height_median(){
-  printf("\n");
-  printf("Heigth median: %3d m\n", global_height_median);
-}
-
 void print_longest_ascent(){
   printf("\n");
   printf("Longest ascent is %4.0f m\n", global_longest_ascent);
-}
-
-void find_height_median_mpi() {
-  if(id == MASTER){
-    int med_l = floor(global_min_elev.value);      // Lower bound
-    int med_u =  ceil(global_max_elev.value);      // Upper bound
-
-    double diff_l =  global_length;  // All route above
-    double diff_u = -global_length;  // All route below                            
-    int med;
-
-    double global_diff;
-
-    double below, above, diff;
-
-    /* Loop invariant:  med_l <= med_u and  diff_u <= 0 <= diff_l */
-    while (med_u - med_l > 1) {
-
-    }
-
-  }
-}
-
-void find_height_median() {
-  int med_l = floor(global_min_elev.value);      // Lower bound
-  int med_u =  ceil(global_max_elev.value);      // Upper bound
-
-  double diff_l =  global_length;  // All route above
-  double diff_u = -global_length;  // All route below                            
-  int med;
-
-  double global_diff;
-
-  double below, above, diff, rdiff;
-
-  /* Loop invariant:  med_l <= med_u and  diff_u <= 0 <= diff_l */
-  while (med_u - med_l > 1) {
-    /* Make a new estimate of the median */ 
-    med = (med_l + med_u)/2;
-
-    /* Find total above and below stretchtes for local section */
-    if(first < last){
-      above = distance_above(med);
-      below = distance_below(med);
-    
-      diff = above - below;
-    }else{
-      diff = 0;
-    }
-
-    MPI_Allreduce(&diff, &rdiff, 1,
-                  MPI_DOUBLE, MPI_SUM, MPI_COMM_WORLD);
-
-    global_diff = rdiff;
-
-    if (global_diff == 0.0) {
-      /* Hit, just record in upper bound and break */
-      med_u = med;
-      diff_u = global_diff;
-      break;
-    }
-
-    if (global_diff > 0) {
-      med_l = med;
-      diff_l = global_diff;
-    } else {
-      med_u = med;
-      diff_u = global_diff;
-    }
-  }
-
-  /* Take the height with the smallest absolute difference */   
-  global_height_median =  (abs(diff_u) <= abs(diff_l)) ? med_u : med_l;
 }
 
 void find_longest_ascent() {
@@ -459,8 +381,6 @@ int main(int argc, char* args[]){
     print_route();
 
     print_extremes();
-
-    print_height_median();
 
     print_longest_ascent();
   }
