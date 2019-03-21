@@ -5,7 +5,7 @@
 # -- specify queue --
 #PBS -q hpc
 # -- estimated wall clock time (execution time): hh:mm:ss --
-#PBS -l walltime=00:01:00
+#PBS -l walltime=00:00:05
 # -- number of processors/cores/nodes --
 #PBS -l nodes=1:ppn=6
 # -- user email address --
