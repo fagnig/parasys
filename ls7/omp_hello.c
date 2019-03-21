@@ -19,7 +19,7 @@ int main (int argc, char *argv[])
 int nthreads, tid;
 
 /* Fork a team of threads giving them their own copies of variables */
-#pragma omp parallel private(nthreads, tid)
+#pragma omp parallel private(nthreads, tid) num_threads(4)
   {
 
   /* Obtain thread number */

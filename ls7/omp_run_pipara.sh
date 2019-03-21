@@ -1,7 +1,7 @@
 #!/bin/sh
 # embedded options to qsub - start with #PBS
 # -- Name of the job ---
-#PBS -N Hello_OMP
+#PBS -N PIPARA
 # -- specify queue --
 #PBS -q hpc
 # -- estimated wall clock time (execution time): hh:mm:ss --
@@ -21,5 +21,5 @@ echo $PWD
 OMP_NUM_THREADS=$PBS_NUM_PPN
 export  OMP_NUM_THREADS
 
-./omp_hello > omp.log
+./pipara > pipara.log
 
