@@ -25,7 +25,7 @@
 double gettime() {
   /* omp_get_wtime() might also be used */
   struct timespec timeSpec;
-  clock_gettime(CLOCK_MONOTONIC,&timeSpec);
+  clock_gettime(CLOCK_MONOTONIC_RAW,&timeSpec);
   return timeSpec.tv_sec + timeSpec.tv_nsec/1.0e9;
 }
 
@@ -40,17 +40,30 @@ int main(int argc, char **argv)
 
   printf("Number of intervals: %ld\n", intervals);
 
-  sum = 0.0;
-  start = 0;
-  end = intervals;
-  dx = 1.0 / (double) intervals;
-  for (i = start; i < end; i++) {
-    x = dx * ((double) (i + 0.5));
-    f = 4.0 / (1.0 + x*x);
-    sum = sum + f;
+
+  int nthreads, tid;
+
+  /* Fork a team of threads giving them their own copies of variables */
+  #pragma omp parallel private(nthreads, tid, sum, start, end, dx, x, f) reduction(+: pi)
+  { 
+    tid = omp_get_thread_num();
+    nthreads = omp_get_num_threads();
+
+    sum = 0.0;
+    start = (intervals/nthreads) * tid;
+    end = (intervals/nthreads) *tid+1;
+    dx = 1.0 / (double) intervals;
+
+    for (i = start; i < end; i++) {
+      x = dx * ((double) (i + 0.5));
+      f = 4.0 / (1.0 + x*x);
+      sum = sum + f;
+    }
+
+    pi += dx*sum;
+
   }
 
-  pi = dx*sum;
 
   time2 = gettime();
 
