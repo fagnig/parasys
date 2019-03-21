@@ -65,7 +65,6 @@ int main(int argc, char **argv)
     }
 
     pi += dx*sum;
-    //time2 = gettime();
   }
 
   time2 = gettime();
