@@ -78,14 +78,12 @@ void processImage(char* filename) {
 
   printf("Elapsed time, serial filtering (s) = %f\n", timeserial);
 
-
   /*Checks that the two pictures are identical*/
   if (0 == memcmp(ompImage.data, img.data, img.sizeX*img.sizeY*sizeof(int32_t))){
     printf("Elapsed time, using omp filtering (s) = %f\n", timeomp);
   } else {
     printf("ERROR creating omp image, image not identical to serial filtered version\n");
   }
-
 
   /* Write your modified image as output to a BMP file */
   char writename[40];
@@ -102,6 +100,7 @@ void processImage(char* filename) {
   createImageFromPixelArray(ompImage, &finalOmp);
   writeImage(writeomp, finalOmp);
   printf("Wrote new omp processed picture to: %s\n", writeomp);
+
 }
 
 
@@ -178,7 +177,7 @@ void averagingFilterOpenMP(PIXEL_ARRAY* img, PIXEL_ARRAY* orig_img, int N) {
 
   radius = N / 2;
 
-#pragma omp parallel for
+  #pragma omp parallel for collapse(2) private(n,m,idx,curr_idx,out_of_bounds, green_avg, blue_avg, red_avg, pixel)
   for (i = 0; i < img->sizeY; i++) {
     for (j = 0; j < img->sizeX; j++) {
       /* For pixels whose window would extend out of bounds, we need to count

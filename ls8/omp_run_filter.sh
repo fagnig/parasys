@@ -1,13 +1,13 @@
 #!/bin/sh
 # embedded options to qsub - start with #PBS
 # -- Name of the job ---
-#PBS -N Hello_OMP
+#PBS -N OMP_Filter
 # -- specify queue --
 #PBS -q hpc
 # -- estimated wall clock time (execution time): hh:mm:ss --
 #PBS -l walltime=00:01:00
 # -- number of processors/cores/nodes --
-#PBS -l nodes=1:ppn=6
+#PBS -l nodes=1:ppn=8
 # -- user email address --
 ##PBS -M s175179@student.dtu.dk
 # -- mail notification --
@@ -21,5 +21,5 @@ echo $PWD
 OMP_NUM_THREADS=$PBS_NUM_PPN
 export  OMP_NUM_THREADS
 
-./omp_hello > omp.log
+./runFilter.sh > filter.log
 
