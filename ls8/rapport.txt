@@ -1,0 +1,31 @@
+6.1
+> In the report, you are going to explain how the programs works.
+The program works by looking at each pixel in the original image, averaging all the colours over a WINDOW_SIZE*WINDOW_SIZE region with the pixel as the center, and writing the average of these colours to the processed image.
+
+> How well do you think it removes the noise?
+somewhat well, even though it's just a simple blurring filter
+
+>What speedup can you achieve for various numbers of threads/cores (up to the max number of cores available)?
+see result.txt
+
+>Also make a graph of the parallel efficiency. 
+niko lav lige excel
+
+>For one thread what is the efficiency of the OpenMP version? 
+bad
+
+>Why is it not close to 100%? 
+Thread memory copying overhead
+
+>Explain the form of the efficiency curve.
+og forklar den tak x D
+
+6.2
+>First add the clause schedule(static, 500) and run the test script again for different numbers of cores. Explain the results.
+
+
+>Now do the same for the clauses schedule(static, 1), schedule(dynamic) and schedule(guided).
+result.txt
+
+>Does any of the schduling clauses seem to improve the parallel efficiency?
+They all seem to slow it down, as most likely the workload is not big enough.
