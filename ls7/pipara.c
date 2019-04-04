@@ -70,9 +70,9 @@ int main(int argc, char **argv)
   time2 = gettime();
 
   //Double is precise until 15th decimal
-  printf("Computed Pi %27.15f\n", pi);
-  printf("The true Pi %27.15f\n", true_pi);
-  printf("Error       %27.15f\n\n", true_pi-pi);
+  printf("Computed Pi %27.14f\n", pi);
+  printf("The true Pi %27.14f\n", true_pi);
+  printf("Error       %27.14f\n\n", true_pi-pi);
   printf("Elapsed time (s) = %f\n", time2-time1);
 
   return 0;
