@@ -60,7 +60,7 @@ void * test(void* rank) {
 	int num;
 
 	//Test x time(s)
-	int x = 1;
+	int x = 2;
 	for (int i = 0; i < x; i++) {
 		num = rand()%100 - 50; // "Random" number i range -50 to 50
 		printf("Thread %ld has k = %d\n", my_rank, num);
