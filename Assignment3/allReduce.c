@@ -42,14 +42,14 @@ void bar_pass() {
 }
 
 void all_reduce(int * k) {
-	bar_pass();
 	pthread_mutex_lock(&mutex);
 	sum += *k;
 	pthread_mutex_unlock(&mutex);
 	bar_pass();
 	*k = sum;
 	bar_pass();
-	sum = 0;
+	sum = 0;  // Bad way to do this, but i works...
+	bar_pass();
 }
 
 void * test(void* rank) {
@@ -71,11 +71,14 @@ void * test(void* rank) {
 }
 
 int main(int argc, char **argv) {
-	long thread; /* Use long in case of a 64-bit system */
+	if (argc < 2) {
+		printf("Usage: Number of threads as first arg\n.");
+		exit(1);
+	}
+	long thread;
 
 	pthread_t* thread_handles [MAX_THREADS];
 	thread_count = atoi(argv[1]);
-
 	bar_init();
 
 	for (thread = 0; thread < thread_count; thread++)
