@@ -17,6 +17,8 @@
 int size = 0;
 int sols = 0;
 
+int *privSol;
+
 /* Not used -- may be used for debuggin */
 void print(int queens[]) {
   printf("Solution for size: %d\n\n", size);
@@ -66,18 +68,26 @@ void count_sols_seq(int sol[], int j) {
   Parallelize using OpenMP tasks.
  */
 void count_sols_par(int sol[], int j) {
+
   for (int i = 0; i < size; i++) {
     if ( legal(sol, i, j) ) {
       if (j == size-1) { 
         // last column, we have a full solution
-        sols++;
+        #pragma omp critical
+        {sols++;}
       } else {
+        int * privSol = (int *) malloc(size*sizeof(int));
+        memcpy(privSol, sol, size*sizeof(int));
         // place queen in column j and keep counting
-        sol[j] = i;
-        count_sols_seq(sol, j + 1);
+        privSol[j] = i;
+
+        #pragma omp task default(none) firstprivate(privSol,j)
+        count_sols_par(privSol, j + 1);
       }
     }
   }
+
+  free(sol);
 }
 
 
@@ -110,6 +120,9 @@ int main(int argc, char*argv[]) {
   
   int queens[size];
 
+  int * sol = (int *) malloc(size*sizeof(int));
+  memcpy(sol, queens, size*sizeof(int));
+
   double start_time;
   double time_seq, time_par;
 
@@ -129,7 +142,9 @@ int main(int argc, char*argv[]) {
 
   sols = 0;
   start_time = omp_get_wtime();
-      count_sols_par(queens, 0);
+  #pragma omp parallel 
+    #pragma omp single
+      count_sols_par(sol, 0);
   time_par = omp_get_wtime() - start_time;
   sols_par = sols;
 

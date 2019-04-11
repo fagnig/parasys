@@ -55,3 +55,5 @@ Precision: 12
 Task-based parallelism needs some sort of treshhold where the remaining tasks are run sequentially to avoid splitting up the tasks into infitessimally small parts.
 Each task needs a fairly sizeable workload or the overhead of creating tasks and splitting them between threads will take far longer than the time saved in calculation.
 
+
+NQUEEN.C
