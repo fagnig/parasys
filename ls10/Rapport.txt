@@ -1,2 +1,57 @@
 Rapport.txt
 
+ADAPT.C
+
+>Read the code and understand how it works. Which function is being integrated?
+the sine function is being integrated recursively
+
+>First uncomment the #pragma omp parallel and #pragma omp single before the call of integrate par in the main routine. Run the program with a thread parameter of say 4. What do these pramgas mean? 
+single ensures that only a single thread will call the function/block after the pragma.
+
+>Which effect do they have on the parallel computation time?
+There's no effect as there is no actual parallelisation taking place, it only ensures that only one thread calls the integrate_par
+
+>Now, parallelize the function integrate par by turning the recursive call into tasks to be executed independently. The results should be returned in the variables left area and right area so you should ensure this can be done safely without these going out of scope.
+
+>Once working correctly, record the speedups for different number of threads. Why do you think it is so poor?
+Precision: 13
+01 0.47
+02 0.09
+03 0.09
+04 0.07
+05 0.06
+06 0.06
+07 0.05
+08 0.05
+09 0.05
+10 0.05
+11 0.05
+12 0.04
+
+it is incredibly poor because a lot of time is spent copying and fiddling with memory instead of actually calculating anything.
+This is also seen in the way the speedup gets worse the more threads we add.
+
+>Replace the sin functions with sin3. Does it have any effect?
+This gives a decent speedup, as sin3 is a more computationally heavy method for calculating sin.
+This takes advantage of the extra calculation power we get from more threads
+It is still not faster than the sequential implementation, but this sheds some light on why the parallel version is slow.
+Precision: 12
+04 0.61
+06 0.46
+08 0.37
+
+>Try to add the clause final(b - a < 0.1) to each task pragma. What does it mean? What do you observe?
+This clause means that if the expression defined in final returns true the task spawned will be a final task, meaning the tasks spawned by this thread will be final and included, meaning that the tasks are run on the same thread with the same memory, so that a lot of time copying the memory is saved.
+The clause ensures that once we get to a small enough interval we essentially run the remaining child tasks sequentially.
+As seen by the results this has a great effect on the speedup, sine less time is wasted copying and organising memory.
+Precision: 12
+02 1.71
+04 1.86
+06 2.78
+08 3.70
+12 5.19
+
+>What are your conclusions from this exercise regarding task-based parallelism?
+Task-based parallelism needs some sort of treshhold where the remaining tasks are run sequentially to avoid splitting up the tasks into infitessimally small parts.
+Each task needs a fairly sizeable workload or the overhead of creating tasks and splitting them between threads will take far longer than the time saved in calculation.
+

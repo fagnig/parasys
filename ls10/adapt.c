@@ -21,6 +21,11 @@ const double pi = 3.141592653589793238462643;
 
 long int calls = 0;
 
+void iterateCalls(){
+  #pragma omp atomic
+  calls++;
+}
+
 /* Some functions to integrate */
 
 double f1(double x) {
@@ -68,7 +73,7 @@ double integrate_seq(double a, double b, double (*f) (double), double e) {
   Parallelize using OpenMP tasks.
 */
 double integrate_par(double a, double b, double (*f) (double), double e) {
-  calls ++;
+  iterateCalls();
   double m  = (a + b) / 2;
   double one_trap_area = (b - a) * (f(a) + f(b)) / 2;
   double two_trap_area = (b - a) * (f(a) + f(b) + 2 * f(m))/ 4;
@@ -77,8 +82,14 @@ double integrate_par(double a, double b, double (*f) (double), double e) {
     return two_trap_area;
   } else {
     double left_area, right_area;
-    left_area  = integrate_seq(a, m, f, e/2);
-    right_area = integrate_seq(m, b, f, e/2);
+
+    #pragma omp task default(shared) final(b - a < 0.1)
+    left_area  = integrate_par(a, m, f, e/2);
+
+    #pragma omp task default(shared) final(b - a < 0.1)
+    right_area = integrate_par(m, b, f, e/2);
+
+    #pragma omp taskwait
     return left_area + right_area;
   }
 }
@@ -123,7 +134,7 @@ int main(int argc, char*argv[]) {
   /* Formulate integration problem */
   a = 0.0;
   b = pi;
-  fun = sin;
+  fun = sin3;
   
   printf("\nPrecision: %d, threads: %d\n\n", exp, omp_get_max_threads());
   
@@ -138,8 +149,8 @@ int main(int argc, char*argv[]) {
 
   calls = 0;
   start_time = omp_get_wtime();
-  // #pragma omp parallel
-    // #pragma omp single
+  #pragma omp parallel
+    #pragma omp single
       area_par = integrate_par(a, b, fun, e);
   time_par = omp_get_wtime() - start_time;
   calls_par = calls;
