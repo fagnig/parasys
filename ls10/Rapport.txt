@@ -57,3 +57,33 @@ Each task needs a fairly sizeable workload or the overhead of creating tasks and
 
 
 NQUEEN.C
+
+>When the parallel version works too, try to record the speedup for various number of threads. Are these numbers as you would hope for?
+Param 13
+02 1.63
+04 3.14
+06 2.94
+08 2.70
+10 2.61
+12 2.14
+14 2.48
+16 2.47
+
+Param 14
+02 1.77
+04 3.30
+06 3.51
+08 3.45
+10 2.96
+12 2.77
+14 3.05
+16 3.17
+
+This speedup is to be expected without a final clause as tasks get generated far too late
+
+>Finally you may try to improve performance by cutting off task generation using a final clause. What could be used as the cut-off criteria? Where should you cut off? Does it help?
+A possible final clause could be simply cutting off based on the j, meaning the column no.
+Cutting off at ex. the last fifth of iterations
+<example>
+
+>[Optional: You may also try to see, if running on the HPC cluster nodes makes any difference.]
