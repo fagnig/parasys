@@ -9,7 +9,7 @@
 # -- number of processors/cores/nodes --
 #PBS -l nodes=1:ppn=10
 # -- user email address --
-##PBS -M sXXXXXX@student.dtu.dk
+##PBS -M s175179@student.dtu.dk
 # -- mail notification --
 ##PBS -m abe
 # -- run in the current working (submission) directory --
@@ -24,13 +24,14 @@ echo $PWD
 export TEXTFILE=dna.txt
 export PATTERN="TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG"
 # Choose either fixed number of threads or use number of cores
-export NTHREADS=4
+export NTHREADS=10
 # export  NTHREADS=$PBS_NUM_PPN
 
 # Create empty file (to be appended to)
 cat </dev/null >java.log
 
 export NTASKS_LIST="1 2 4 8 10 12 16 20 40 60 80 100"
+#export NTASKS_LIST="10 100 1000 10000"
 
 # Run search for varying number of tasks
 for NTASKS in $NTASKS_LIST

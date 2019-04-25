@@ -14,3 +14,81 @@ The length of the given pattern is used so every possible position is checked
 The first task is given from 0 (the start) to bitesize
 Each subsequent task is then given from (bitesize * taskno) - (patternLen -1) to (bitesize * (taskno+1))
 In this way every possible pattern is found
+
+
+>1. Try to submit the runSearch.sh script to the HPC queue. Run it several times (remember to save each of the java.log files). Plot the results. Explain the results.
+
+1st run - nthreads: 8
+
+ntasks: 1,    Speedup: 0.99
+ntasks: 2,    Speedup: 1.92
+ntasks: 4,    Speedup: 3.58
+ntasks: 8,    Speedup: 6.78
+ntasks: 10,   Speedup: 8.46
+ntasks: 12,   Speedup: 6.62
+ntasks: 16,   Speedup: 6.92
+ntasks: 20,   Speedup: 7.32
+ntasks: 40,   Speedup: 7.61
+ntasks: 60,   Speedup: 7.79
+ntasks: 80,   Speedup: 7.68
+ntasks: 100,  Speedup: 7.94
+
+2nd run - nthreads: 8
+
+ntasks: 1,    Speedup: 0.99
+ntasks: 2,    Speedup: 1.94
+ntasks: 4,    Speedup: 3.64
+ntasks: 8,    Speedup: 6.73
+ntasks: 10,   Speedup: 8.36
+ntasks: 12,   Speedup: 6.45
+ntasks: 16,   Speedup: 6.89
+ntasks: 20,   Speedup: 7.40
+ntasks: 40,   Speedup: 7.80
+ntasks: 60,   Speedup: 7.88
+ntasks: 80,   Speedup: 8.00
+ntasks: 100,  Speedup: 7.98
+
+The speedup hits maximum around 10 tasks with 8 threads, slightly more tasks than threads. This is most likely because of the task size etc, and also because we can only run 8 threads concurrently.
+
+>2. Try to run the search on the HPC queue with large amounts of tasks (10, 100,1000,10000) and explain the results.
+
+ntasks: 10,     Speedup: 8.14
+ntasks: 100,    Speedup: 8.01
+ntasks: 1000,   Speedup: 6.84
+ntasks: 10000,  Speedup: 5.38
+
+As we can see the efficiency becomes worse and worse as the task no increases. This is again because we can at most run 8 threads concurrently, and as the task size becomes smaller the more time is spent in overhead and task/thread management rather than actual calculation
+
+>3. For a fixed number of requested cores (say 10), try to determine which combination of tasks and threads seem to give you the best speedup.
+
+nthreads : 10
+
+ntasks: 1,    Speedup: 0.97
+ntasks: 2,    Speedup: 1.91
+ntasks: 4,    Speedup: 3.61
+ntasks: 8,    Speedup: 6.68
+ntasks: 10,   Speedup: 8.29
+ntasks: 12,   Speedup: 5.39
+ntasks: 16,   Speedup: 6.71
+ntasks: 20,   Speedup: 8.27
+ntasks: 40,   Speedup: 7.96
+ntasks: 60,   Speedup: 8.23
+ntasks: 80,   Speedup: 8.25
+ntasks: 100,  Speedup: 8.20
+
+nthreads : 10
+
+ntasks: 1,    Speedup: 0.99
+ntasks: 2,    Speedup: 2.00
+ntasks: 4,    Speedup: 3.78
+ntasks: 8,    Speedup: 6.70
+ntasks: 10,   Speedup: 8.12
+ntasks: 12,   Speedup: 5.18
+ntasks: 16,   Speedup: 7.19
+ntasks: 20,   Speedup: 8.12
+ntasks: 40,   Speedup: 11.25
+ntasks: 60,   Speedup: 8.14
+ntasks: 80,   Speedup: 8.47
+ntasks: 100,  Speedup: 11.65
+
+It seems like the best combination of tasks/threads is a no of tasks that divide up nicely with the number of threads eg. ntasks % nthreads = 0.

@@ -139,7 +139,8 @@ public class Search {
 
             /* Setup execution engine */
             //ExecutorService engine = Executors.newSingleThreadExecutor();
-            ExecutorService engine = Executors.newCachedThreadPool();
+            //ExecutorService engine = Executors.newCachedThreadPool();
+            ExecutorService engine = Executors.newFixedThreadPool(nthreads);
 
             /**********************************************
              * Run search using a single task
@@ -193,11 +194,17 @@ public class Search {
 
             /* Submit tasks  */
             List<Integer> completelist = new LinkedList<Integer>();
+            List<Future<List<Integer>>> futureList = new LinkedList<Future<List<Integer>>>();
 	    for (SearchTask task : taskList) {
 		  Future<List<Integer>> future = engine.submit(task);
                 // Collect futures here
-            completelist.addAll(future.get());
+            futureList.add(future);
 	    }
+
+        for (Future<List<Integer>> future : futureList){
+            completelist.addAll(future.get());
+        }
+
 
 	    /* Overall result is an ordered list of unique occurrence positions */
  	    // Replace with a proper combination of task results!

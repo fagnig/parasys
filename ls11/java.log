@@ -1,96 +1,96 @@
 
-File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 1, nthreads: 4
+File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 1, nthreads: 10
 
-Single task:    1 occurrences found in 1.283560 s
-Using  1 tasks: 1 occurrences found in 1.287927 s
-
-Speedup: 1.00
-
-
-File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 2, nthreads: 4
-
-Single task:    1 occurrences found in 1.282296 s
-Using  2 tasks: 1 occurrences found in 1.284185 s
-
-Speedup: 1.00
-
-
-File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 4, nthreads: 4
-
-Single task:    1 occurrences found in 1.283621 s
-Using  4 tasks: 1 occurrences found in 1.289992 s
-
-Speedup: 1.00
-
-
-File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 8, nthreads: 4
-
-Single task:    1 occurrences found in 1.282769 s
-Using  8 tasks: 1 occurrences found in 1.292528 s
+Single task:    1 occurrences found in 1.291301 s
+Using  1 tasks: 1 occurrences found in 1.307415 s
 
 Speedup: 0.99
 
 
-File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 10, nthreads: 4
+File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 2, nthreads: 10
 
-Single task:    1 occurrences found in 1.283197 s
-Using 10 tasks: 1 occurrences found in 1.291910 s
+Single task:    1 occurrences found in 1.305558 s
+Using  2 tasks: 1 occurrences found in 0.651297 s
 
-Speedup: 0.99
-
-
-File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 12, nthreads: 4
-
-Single task:    1 occurrences found in 1.283557 s
-Using 12 tasks: 1 occurrences found in 1.305921 s
-
-Speedup: 0.98
+Speedup: 2.00
 
 
-File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 16, nthreads: 4
+File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 4, nthreads: 10
 
-Single task:    1 occurrences found in 1.283246 s
-Using 16 tasks: 1 occurrences found in 1.292679 s
+Single task:    1 occurrences found in 1.285764 s
+Using  4 tasks: 1 occurrences found in 0.340259 s
 
-Speedup: 0.99
-
-
-File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 20, nthreads: 4
-
-Single task:    1 occurrences found in 1.283151 s
-Using 20 tasks: 1 occurrences found in 1.290666 s
-
-Speedup: 0.99
+Speedup: 3.78
 
 
-File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 40, nthreads: 4
+File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 8, nthreads: 10
 
-Single task:    1 occurrences found in 1.283538 s
-Using 40 tasks: 1 occurrences found in 1.293442 s
+Single task:    1 occurrences found in 1.285349 s
+Using  8 tasks: 1 occurrences found in 0.191891 s
 
-Speedup: 0.99
-
-
-File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 60, nthreads: 4
-
-Single task:    1 occurrences found in 1.288562 s
-Using 60 tasks: 1 occurrences found in 1.300247 s
-
-Speedup: 0.99
+Speedup: 6.70
 
 
-File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 80, nthreads: 4
+File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 10, nthreads: 10
 
-Single task:    1 occurrences found in 1.284074 s
-Using 80 tasks: 1 occurrences found in 1.294872 s
+Single task:    1 occurrences found in 1.199442 s
+Using 10 tasks: 1 occurrences found in 0.147738 s
 
-Speedup: 0.99
+Speedup: 8.12
 
 
-File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 100, nthreads: 4
+File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 12, nthreads: 10
 
-Single task:    1 occurrences found in 1.283183 s
-Using 100 tasks: 1 occurrences found in 1.296536 s
+Single task:    1 occurrences found in 1.288267 s
+Using 12 tasks: 1 occurrences found in 0.248724 s
 
-Speedup: 0.99
+Speedup: 5.18
+
+
+File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 16, nthreads: 10
+
+Single task:    1 occurrences found in 1.286856 s
+Using 16 tasks: 1 occurrences found in 0.178879 s
+
+Speedup: 7.19
+
+
+File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 20, nthreads: 10
+
+Single task:    1 occurrences found in 1.290857 s
+Using 20 tasks: 1 occurrences found in 0.158936 s
+
+Speedup: 8.12
+
+
+File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 40, nthreads: 10
+
+Single task:    1 occurrences found in 1.905122 s
+Using 40 tasks: 1 occurrences found in 0.169335 s
+
+Speedup: 11.25
+
+
+File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 60, nthreads: 10
+
+Single task:    1 occurrences found in 1.290569 s
+Using 60 tasks: 1 occurrences found in 0.158564 s
+
+Speedup: 8.14
+
+
+File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 80, nthreads: 10
+
+Single task:    1 occurrences found in 1.281296 s
+Using 80 tasks: 1 occurrences found in 0.151316 s
+
+Speedup: 8.47
+
+
+File: dna.txt, pattern: 'TCTGAAGGATGAGTCAAGCAGTGGAGCAGGTTCAGAATGCCCATCTGTTTTCACCAGAGG', ntasks: 100, nthreads: 10
+
+Single task:    1 occurrences found in 1.905389 s
+Using 100 tasks: 1 occurrences found in 0.163604 s
+
+Speedup: 11.65
 
