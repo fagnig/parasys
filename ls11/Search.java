@@ -138,7 +138,8 @@ public class Search {
                               fname, new String(pattern), ntasks, nthreads);
 
             /* Setup execution engine */
-            ExecutorService engine = Executors.newSingleThreadExecutor();
+            //ExecutorService engine = Executors.newSingleThreadExecutor();
+            ExecutorService engine = Executors.newCachedThreadPool();
 
             /**********************************************
              * Run search using a single task
@@ -173,15 +174,36 @@ public class Search {
             List<SearchTask> taskList = new ArrayList<SearchTask>();
             // Add tasks to list here
 
+            //ADDED
+
+            int patternLen = new String(pattern).length(); //Length of pattern
+            int bitesize = len/ntasks;  //amount of characters each task gets
+
+            for(int j = 0; j < ntasks; j++){
+                int startlocal = (bitesize*j) - ((patternLen-1)*java.lang.Math.min(j, 1));
+                int endlocal = (bitesize*(j+1));
+
+                if(j == ntasks-1){
+                    endlocal = len;
+                }
+
+                taskList.add(new SearchTask(text,pattern,startlocal,endlocal));
+            }
+
+
             /* Submit tasks  */
+            List<Integer> completelist = new LinkedList<Integer>();
 	    for (SearchTask task : taskList) {
-		Future<List<Integer>> future = engine.submit(task);
+		  Future<List<Integer>> future = engine.submit(task);
                 // Collect futures here
+            completelist.addAll(future.get());
 	    }
 
 	    /* Overall result is an ordered list of unique occurrence positions */
  	    // Replace with a proper combination of task results!
             List<Integer> result = new LinkedList<Integer>();
+
+            result.addAll(completelist);
 
             double time = (double) (System.nanoTime()-start)/1e9;
 

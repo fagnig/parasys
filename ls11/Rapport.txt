@@ -1,0 +1,16 @@
+>In the report, you should describe how the division into tasks is done
+
+int patternLen = new String(pattern).length(); //Length of pattern
+int bitesize = len/ntasks;  //amount of characters each task gets
+
+for(int j = 0; j < ntasks; j++){
+  int startlocal = (bitesize*j) - ((patternLen-1)*java.lang.Math.min(j, 1));
+  int endlocal = (bitesize*(j+1));
+
+}
+
+The length of the file is split up into ntasks amount of pieces
+The length of the given pattern is used so every possible position is checked
+The first task is given from 0 (the start) to bitesize
+Each subsequent task is then given from (bitesize * taskno) - (patternLen -1) to (bitesize * (taskno+1))
+In this way every possible pattern is found
